@@ -23,9 +23,10 @@ INSERT INTO customers (CustomerName, ContactName, Address, City, PostalCode, Cou
 
 ## update _Bilbo Baggins_ record so that the postal code changes to _"11122"_.
 UPDATE customers SET PostalCode='11122' WHERE CustomerID='92';
+UPDATE customers SET PostalCode='11122' WHERE ContactName="Bilbo Baggins";
 
 ## list orders grouped by customer showing the number of orders per customer. _Rattlesnake Canyon Grocery_ should have 7 orders.
-SELECT Customers.CustomerName,COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+SELECT Customers.CustomerName,COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders 
 LEFT JOIN Customers ON Orders.CustomerID = Customers.CustomerID
 GROUP BY CustomerName;
 
@@ -34,6 +35,4 @@ GROUP BY CustomerName;
 ## list orders grouped by customer's city showing number of orders per city. Returns 58 Records with _Aachen_ showing 2 orders and _Albuquerque_ showing 7 orders.
 
 ## delete all users that have no orders. Should delete 17 (or 18 if you haven't deleted the record added) records.
-
-
-## delete all users that have no orders. Should delete 17 (or 18 if you haven't deleted the record added) records.
+SELECT Customers.CustomerID FROM Customers LEFT JOIN  Orders ON Customers.CustomerID = Orders.CustomerID WHERE Orders.CustomerID IS NULL;
