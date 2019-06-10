@@ -27,20 +27,7 @@ server.get('/api/accounts', (req, res) => {
             })
 });
 
-//GET account by ID
-server.get('/accounts/:id',(req, res) => {
-      accountsDb.findById(req.params.id)
-        .then(account => {
-         if (id) {
-           res.status(200).json(account);
-         } else {
-           res.status(404).json({message: "User id not found"})
-        }
-    })
-  .catch(err => {
-     console.log(err)
-       res.status(500).json({ message: 'Could not add account' })
-   });})  
+
 
 //POST
 server.post('/api/accounts', (req, res) => {
