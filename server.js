@@ -23,11 +23,22 @@ server.get('/api/accounts', (req, res) => {
             })
            .catch(err => {
               console.log(err)
-                res.status(500).json({ message: 'Error getting budgets' })
+                res.status(500).json({ message: 'Error getting accounts' })
             })
 });
 
+//GET User id
+server.get('/api/accounts/:id', (req, res) => {
+    const { id } = req.params;
+    accountsDb.findById(id)
+    .then(account => {
+        res.status(200).json(account)
+    })
+    .catch(err => {
+        res.status(500).json({error: "The account information could not be retrieved." });
+    });
 
+}); 
 
 //POST
 server.post('/api/accounts', (req, res) => {
@@ -68,13 +79,13 @@ server.put('/api/accounts/:id', (req, res) => {
   accountsDb.update(id, update)
            .then(account => {
               if(!id) {
-                  res.status(404).json({messgae: 'Cannot find that Id'})
+                  res.status(404).json({messgae: 'Cannot find that account with that id'})
               } else {
                   res.status(201).json(account);
               }})
            .catch(err => {
             console.log(err)
-              res.status(500).json({ message: 'Could not update action' })
+              res.status(500).json({ message: 'Could not update account' })
           })
 });
 
